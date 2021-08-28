@@ -6,6 +6,9 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract WaffToken is ERC20 {
     constructor(address initAddress) ERC20("Waffle", "WAFF") {
         // 1 million init token
-        _mint(initAddress, 1000000000000000000000000);
+        uint256 decimals = 10 ** 18;
+        uint256 initSupply = 1000000 * decimals;
+        _mint(initAddress, initSupply);
+                            
     }
 }
