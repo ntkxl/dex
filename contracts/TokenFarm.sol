@@ -14,6 +14,8 @@ contract TokenFarm {
     mapping(address => uint) public stakingBalance;
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
+    // mapping(address => uint) public balances;
+    // event Transfer(address indexed _from,address indexed _to,uint _value);
 
     // constructor(WaffToken _waffToken, DaiToken _daiToken) public {
     //     waffToken = _waffToken;
@@ -22,12 +24,25 @@ contract TokenFarm {
     // }
 
     constructor() public {
+        
     }
 
     function addToken (WaffToken _waffToken,DaiToken _daiToken) public {
         waffToken = _waffToken;
         daiToken = _daiToken;
+        owner = msg.sender;
     }
+
+    // function initDaiAmount() public payable {
+
+    // }
+    // function transfer(address _to, uint _value) public returns (bool success) {
+    //     require(balances[msg.sender] >= _value);
+    //     balances[msg.sender] -= _value;
+    //     balances[_to] += _value;
+    //     emit Transfer(msg.sender, _to, _value);
+    //     return true;
+    // }
 
     function stakeTokens(uint _amount) public {
         // Require amount greater than 0

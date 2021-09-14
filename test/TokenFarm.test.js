@@ -17,28 +17,30 @@ contract('TokenFarm', ([owner, investor]) => {
     // Load Contracts
     tokenFarm = await TokenFarm.new()
     waffToken = await WaffToken.new(tokenFarm.address)
-    daiToken = await DaiToken.new(tokenFarm.address)
+    daiToken = await DaiToken.new()
     await tokenFarm.addToken(waffToken.address,daiToken.address)
+    // let amount = toBigNum('50')
+    // await tokenSwap.initDaiAmount({from: owner, value: amount})
     //tokenFarm = await TokenFarm.new(waffToken.address, daiToken.address)
 
     // // Transfer all Waff tokens to farm (1 million)
     // await waffToken.transfer(tokenFarm.address, tokens('1'))
 
     // // Send tokens to investor
-    // await daiToken.transfer(investor, tokens('1'), { from: owner })
+    await daiToken.transfer(investor, tokens('100'), { from: owner })
   })
 
   describe('Mock DAI deployment', async () => {
     it('has a name', async () => {
       const name = await daiToken.name()
-      assert.equal(name, 'DAI Token')
+      assert.equal(name, 'Mock DAI Token')
     })
   })
 
   describe('Waff Token deployment', async () => {
     it('has a name', async () => {
       const name = await waffToken.name()
-      assert.equal(name, 'Waff Token')
+      assert.equal(name, 'Waffle')
     })
   })
 
@@ -49,8 +51,10 @@ contract('TokenFarm', ([owner, investor]) => {
     })
 
     it('contract has tokens', async () => {
-      let balance = await waffToken.balanceOf(tokenFarm.address)
-      assert.equal(balance.toString(), tokens('1000000'))
+      let balance_waff = await waffToken.balanceOf(tokenFarm.address)
+      assert.equal(balance_waff.toString(), tokens('1000000'))
+      // let balance_dai = await daiToken.balanceOf(tokenFarm.address)
+      // assert.equal(balance_dai.toString(), tokens('100'))
     })
   })
 
